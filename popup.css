@@ -1,5 +1,6 @@
 body {
-  width: 20rem;
+  width: 350px;
+  margin: 0;
 }
 
 ul {
@@ -11,14 +12,252 @@ ul {
 li {
   padding: 0.25rem;
 }
-li:nth-child(odd) {
-  background: #80808030;
-}
-li:nth-child(even) {
-  background: #ffffff;
-}
 
 h3,
 p {
   margin: 0;
+}
+
+summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+
+.main {
+  padding: 1rem 1rem;
+}
+
+.courses-list {
+  margin-top: 12px;
+}
+
+.title-1 {
+  font-size: 17px;
+}
+
+.title-2 {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.title-1 small {
+  font-weight: normal;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 20px;
+  color: #0956d2;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  row-gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid #eee;
+  background: #f9f8f8;
+}
+
+.header__icon--menu[aria-expanded='true']:before {
+  content: '';
+  top: 100%;
+  left: 0;
+  height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
+  width: 100%;
+  display: block;
+  position: absolute;
+  background: rgba(var(--color-foreground), 0.5);
+}
+
+.header__icon:not(.header__icon--summary),
+.header__icon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__icon span .icon {
+  width: 25px;
+  height: 25px;
+}
+
+.header__icon span .icon-close,
+details[open] .header__icon span .icon-hamburger {
+  display: none;
+}
+
+details[open] .header__icon span .icon-close {
+  display: block;
+}
+
+.menu-drawer {
+  height: calc(100vh - 100%);
+}
+
+details[open] > .menu-drawer {
+  transition: transform 0.2s ease, visibility 0.2s ease;
+}
+
+details[open] > .menu-drawer {
+  transform: translate(0);
+  visibility: visible;
+}
+
+.course__tracking-info-table {
+  width: 100%;
+  margin: 0.4rem 0 0.8rem;
+  font-size: 15px;
+}
+
+.accordion summary {
+  display: flex;
+  position: relative;
+  line-height: 1;
+  padding: 0.4rem 0;
+  padding-right: 18px;
+  line-height: 1.2;
+}
+
+summary .icon-caret {
+  position: absolute;
+  height: 8px;
+  right: 10px;
+  top: calc(50% - 0.2rem);
+}
+
+details[open] > summary .icon-caret {
+  transform: rotate(180deg);
+}
+
+.course {
+  background-color: #80808030;
+}
+
+.course + .course {
+  margin-top: 0.6rem;
+}
+.swither__inner {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.swither__switch {
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 30px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.swither__switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.swither__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1f6ff;
+  border: 3px solid #0956d2;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.swither__slider:before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 3px;
+  background-color: #0956d2;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .swither__slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+/* Rounded sliders */
+.swither__slider.round {
+  border-radius: 34px;
+}
+
+.swither__slider.round:before {
+  border-radius: 50%;
+}
+
+.swither__text {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: var(--font-heading-family);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  letter-spacing: 0.5px;
+}
+
+.swither__inner .swither__text:first-of-type {
+  color: #000;
+}
+
+.swither__inner .swither__text:last-of-type {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.swither__inner:has(input:checked) .swither__text:first-of-type {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.swither__inner:has(input:checked) .swither__text:last-of-type {
+  color: #000;
+}
+
+.allowed-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 0.5rem;
+  position: relative;
+}
+
+.allowed-list__remove-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: none;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.allowed-list__remove-btn .icon-remove {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.allowed-list {
+  margin: 8px 0;
+}
+
+.allowed-list li + li {
+  margin-top: 4px;
 }
