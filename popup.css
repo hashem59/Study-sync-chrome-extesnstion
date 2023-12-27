@@ -1,54 +1,19 @@
+
 body {
   width: 350px;
   margin: 0;
-}
-
-ul {
-  list-style-type: none;
-  padding-inline-start: 0;
-  margin: 1rem 0;
 }
 
 li {
   padding: 0.25rem;
 }
 
-h3,
-p {
-  margin: 0;
-}
-
-summary {
+.header__hamburger-btn {
+  padding: 0;
+  outline: none;
+  border: 0;
+  background: none;
   cursor: pointer;
-  list-style: none;
-  position: relative;
-}
-
-.main {
-  padding: 1rem 1rem;
-}
-
-.courses-list {
-  margin-top: 12px;
-}
-
-.title-1 {
-  font-size: 17px;
-}
-
-.title-2 {
-  font-size: 15px;
-  opacity: 0.8;
-}
-
-.title-1 small {
-  font-weight: normal;
-}
-
-.header__title {
-  margin: 0;
-  font-size: 20px;
-  color: #0956d2;
 }
 
 .header {
@@ -66,75 +31,14 @@ summary {
   background: #f9f8f8;
 }
 
-.header__icon--menu[aria-expanded='true']:before {
-  content: '';
-  top: 100%;
-  left: 0;
-  height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
-  width: 100%;
-  display: block;
-  position: absolute;
-  background: rgba(var(--color-foreground), 0.5);
-}
-
-.header__icon:not(.header__icon--summary),
-.header__icon span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header__icon span .icon {
-  width: 25px;
-  height: 25px;
-}
-
-.header__icon span .icon-close,
-details[open] .header__icon span .icon-hamburger {
-  display: none;
-}
-
-details[open] .header__icon span .icon-close {
-  display: block;
-}
-
-.menu-drawer {
-  height: calc(100vh - 100%);
-}
-
-details[open] > .menu-drawer {
-  transition: transform 0.2s ease, visibility 0.2s ease;
-}
-
-details[open] > .menu-drawer {
-  transform: translate(0);
-  visibility: visible;
-}
-
 .course__tracking-info-table {
   width: 100%;
   margin: 0.4rem 0 0.8rem;
   font-size: 15px;
 }
 
-.accordion summary {
-  display: flex;
-  position: relative;
-  line-height: 1;
-  padding: 0.4rem 0;
-  padding-right: 18px;
-  line-height: 1.2;
-}
-
-summary .icon-caret {
-  position: absolute;
-  height: 8px;
-  right: 10px;
-  top: calc(50% - 0.2rem);
-}
-
-details[open] > summary .icon-caret {
-  transform: rotate(180deg);
+.courses-list {
+  margin-top: 12px;
 }
 
 .course {

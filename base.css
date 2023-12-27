@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+h1,
+h1,
+h3,
+.title-1,
+.title-2,
+.header__title {
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+  margin: 1rem 0;
+}
+
+h3,
+p {
+  margin: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background: #0956d2;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+
+.main {
+  padding: 1rem 1rem;
+}
+
+.title-1 {
+  font-size: 17px;
+}
+
+.title-2 {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.title-1 small {
+  font-weight: normal;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 20px;
+  color: #0956d2;
+}
+
+
+.accordion summary {
+  display: flex;
+  position: relative;
+  line-height: 1;
+  padding: 0.4rem 0;
+  padding-right: 18px;
+  line-height: 1.2;
+}
+
+summary .icon-caret {
+  position: absolute;
+  height: 8px;
+  right: 10px;
+  top: calc(50% - 0.2rem);
+}
+
+details[open] > summary .icon-caret {
+  transform: rotate(180deg);
+}
