@@ -8,6 +8,7 @@ class SideNav extends HTMLElement {
   }
 
   switchaTabs(e) {
+    e.preventDefault();
     const target = e.target;
     const tabId = target.getAttribute('aria-controls');
     document.querySelectorAll('[role="tabpanel"]').forEach((tab) => {

@@ -35,6 +35,11 @@ main {
   background-color: #fff;
 }
 
+.header-logo {
+  padding: 0 2rem;
+  margin-bottom: 1.4em;
+}
+
 li a[role='tab'] {
   display: flex;
   margin-right: -1px;
