@@ -1,52 +1,45 @@
-// Copyright 2022 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-chrome.runtime.onInstalled.addListener(() => {
-/*   chrome.action.setBadgeText({
-    text: 'OFF'
-  }); */
+chrome.runtime.onInstalled.addListener(async (details) => {
+  console.log('onInstalled...');
+  // save that tht netLimiter is ON
+  await chrome.storage.sync.set({ browserLimiterState: true });
+  await chrome.storage.sync.set({ browserLimiterAllowList: [] });
 });
 
-const extensions = 'https://developer.chrome.com/docs/extensions';
-const webstore = 'https://developer.chrome.com/docs/webstore';
-
-// When the user clicks on the extension action
-chrome.action.onClicked.addListener(async (tab) => {
-/*   if (tab.url.startsWith(extensions) || tab.url.startsWith(webstore)) {
-    // We retrieve the action badge to check if the extension is 'ON' or 'OFF'
-    const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
-    // Next state will always be the opposite
-    const nextState = prevState === 'ON' ? 'OFF' : 'ON';
-
-    // Set the action badge to the next state
-    await chrome.action.setBadgeText({
-      tabId: tab.id,
-      text: nextState
+chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
+  if (tab.url) {
+    chrome.storage.sync.get
+    chrome.storage.sync.get(['browserLimiterAllowList', 'browserLimiterState']).then(async (data) => {
+      const browserLimiterState = data.browserLimiterState;
+      try {
+        const allowList = data.browserLimiterAllowList || [];
+        const url = new URL(tab.url);
+        const domain = url.hostname;
+        if (tab.url && tab.url.includes('coursera.org')) {
+          const queryParameters = tab.url.split('?')[1];
+          const urlParameters = new URLSearchParams(queryParameters);
+        } else if (!allowList.includes(domain) && browserLimiterState) {
+          const response = await chrome.tabs.sendMessage(tabId, {
+            type: 'StopTab',
+            domain: domain,
+          });
+          console.log('response', response);
+        } 
+      } catch (error) {
+        console.warn('error', error);
+      }
     });
-
-    if (nextState === 'ON') {
-      // Insert the CSS file when the user turns the extension on
-      await chrome.scripting.insertCSS({
-        files: ['focus-mode.css'],
-        target: { tabId: tab.id }
-      });
-    } else if (nextState === 'OFF') {
-      // Remove the CSS file when the user turns the extension off
-      await chrome.scripting.removeCSS({
-        files: ['focus-mode.css'],
-        target: { tabId: tab.id }
-      });
-    }
-  } */
+  } else {
+    console.log('tab.url is not defined');
+  }
 });
+
+// listen for CloseTab message, and close the tab
+chrome.runtime.onMessage.addListener((obj, sender, response) => {
+  console.log('obj', obj);
+  console.log('sender', sender);
+  console.log('response', response);
+  if (obj.type === 'CloseTab') {
+    chrome.tabs.remove(sender.tab.id);
+  }
+});
+

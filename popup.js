@@ -14,4 +14,8 @@ optionsBtn.forEach((btn) => {
   });
 });
 
-
+const allowList = await chrome.storage.sync.get('browserLimiterAllowList', (data) => {
+  console.log('allowList: data', data);
+  return data;
+});
+console.log('allowList', allowList);

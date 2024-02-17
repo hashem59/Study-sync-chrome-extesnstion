@@ -15,8 +15,9 @@
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
+      "css": ["styles/blocker-modal.css", "styles/base.css"],
       "matches": [
-        "https://www.coursera.org/*"
+        "<all_urls>"
       ]
     }
   ],
@@ -42,5 +43,4 @@
       }
     }
   }
-  
 }

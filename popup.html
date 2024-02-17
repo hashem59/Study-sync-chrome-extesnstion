@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./base.css" />
-    <link rel="stylesheet" href="./popup.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/popup.css" />
     <svg style="display: none">
       <symbol
         xmlns="http://www.w3.org/2000/svg"
@@ -125,12 +125,12 @@
       <h3 class="title-1">Browser Limiter <br /><small>(Block non-study websites)</small></h3>
       <div>
         <div class="swither__inner">
-          <span class="swither__text">ON</span>
+          <span class="swither__text">OFF</span>
           <label class="swither__switch">
-            <input type="checkbox" name="no-snacks" value="no" />
+            <input type="checkbox" name="browser-limiter" value="on" />
             <span class="swither__slider round"></span>
           </label>
-          <span class="swither__text">OFF</span>
+          <span class="swither__text">ON</span>
         </div>
       </div>
       <br />
@@ -156,5 +156,6 @@
     </div>
 
     <script src="./popup.js" type="module"></script>
+    <script src="scripts/utils/control-browser-limiter.js"></script>
   </body>
 </html>

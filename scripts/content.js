@@ -1,22 +1,49 @@
-const article = document.querySelector("article");
+console.log('content.js');
+chrome.runtime.onMessage.addListener(async (obj, sender, response) => {
+  console.log('obj', obj);
+  console.log('sender', sender);
+  console.log('response', response);
+  if (obj.type === 'StopTab') showBlocker(obj.domain);
+  response({ type: 'StopTab' });
+});
 
-// `document.querySelector` may return null if the selector doesn't match anything.
-if (article) {
-  const text = article.textContent;
-  const wordMatchRegExp = /[^\s]+/g; // Regular expression
-  const words = text.matchAll(wordMatchRegExp);
-  // matchAll returns an iterator, convert to array to get word count
-  const wordCount = [...words].length;
-  const readingTime = Math.round(wordCount / 200);
-  const badge = document.createElement("p");
-  // Use the same styling as the publish information in an article's header
-  badge.classList.add("color-secondary-text", "type--caption");
-  badge.textContent = `⏱️ ${readingTime} min read`;
+async function showBlocker(domain) {
+  if (document.querySelector('.study-sync__blocker_overlay')) return;
+  // create custom element  and append conetnt to it to protect it from surronding elements
+  const overlay = document.createElement('div');
+  document.body.appendChild(overlay);
 
-  // Support for API reference docs
-  const heading = article.querySelector("h1");
-  // Support for article docs with date
-  const date = article.querySelector("time")?.parentNode;
-
-  (date ?? heading).insertAdjacentElement("afterend", badge);
+  overlay.classList.add('study-sync__blocker_overlay');
+  overlay.innerHTML = `
+    <div class="">
+      <div class="study-sync__blocker-overlay-content">
+        <h2 class="study-sync__blocker-overlay-message">
+          StudySync Browser Limiter is on
+          <br>
+          <small>Do you want to allow "${domain}"?</small>
+        </h2>
+        <button class="study-sync__blocker-overlay-cancel" type="button">
+          Cancel
+        </button>
+        <button class="study-sync__blocker-overlay-allow" type="button">Allow</button>
+      </div>
+    </div>
+  `;
+  overlay.querySelector('.study-sync__blocker-overlay-allow').addEventListener('click', async () => {
+    chrome.storage.sync.get(['browserLimiterAllowList']).then(async (data) => {
+      const allowList = data.browserLimiterAllowList || [];
+      allowList.push(domain);
+      overlay.remove();
+      await chrome.storage.sync.set({ browserLimiterAllowList: allowList });
+    });
+  });
+  overlay.querySelector('.study-sync__blocker-overlay-cancel').addEventListener(
+    'click',
+    async () => {
+      overlay.remove();
+      await chrome.runtime.sendMessage({ type: 'CloseTab' });
+    }
+  );
 }
+
+
