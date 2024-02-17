@@ -135,18 +135,10 @@
       </div>
       <br />
       <h3 class="title-2">Allowed list</h3>
-      <ul class="allowed-list">
-        <li class="allowed-list__item">
-          <span class="allowed-list__item-label">https://www.youtube.com/</span>
-          <button class="allowed-list__remove-btn" title="Remove">
-            <svg aria-hidden="true" focusable="false" class="icon icon-remove" viewBox="0 0 18 17">
-              <use href="#icon-remove"></use>
-            </svg>
-          </button>
-        </li>
-        <li class="allowed-list__item">
-          <span class="allowed-list__item-label">https://www.facebook.com/</span>
-          <button class="allowed-list__remove-btn">
+      <ul class="allow-list">
+        <li class="allow-list__item">
+          <div>www.google.com</div>
+          <button class="button" data-url="www.google.com" type="button" title="Remove">
             <svg aria-hidden="true" focusable="false" class="icon icon-remove" viewBox="0 0 18 17">
               <use href="#icon-remove"></use>
             </svg>
@@ -156,7 +148,6 @@
     </div>
 
     <script src="./popup.js" type="module"></script>
-    <script src="scripts/utils/control-browser-limiter.js"></script>
-    <script src="scripts/utils/remove-domain-from-allow-list.js"></script>
+    <script src="scripts/core.js"></script>
   </body>
 </html>

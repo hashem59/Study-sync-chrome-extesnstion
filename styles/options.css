@@ -101,30 +101,6 @@ li a[role='tab'][aria-selected] {
   padding: 6px;
 }
 
-.allow-list__item {
-  display: flex;
-  padding-right: 4rem;
-  position: relative;
-}
-
-.allow-list__item button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: none;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-  padding: 0;
-  color: inherit;
-}
-
-.allow-list__item button svg {
-  height: 1.2rem;
-  width: 1.2rem;
-}
-
 [role='tabpanel']:not([hidden]) {
   display: block;
 }

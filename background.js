@@ -22,7 +22,6 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
             type: 'StopTab',
             domain: domain,
           });
-          console.log('response', response);
         } 
       } catch (error) {
         console.warn('error', error);
@@ -35,9 +34,6 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
 
 // listen for CloseTab message, and close the tab
 chrome.runtime.onMessage.addListener((obj, sender, response) => {
-  console.log('obj', obj);
-  console.log('sender', sender);
-  console.log('response', response);
   if (obj.type === 'CloseTab') {
     chrome.tabs.remove(sender.tab.id);
   }

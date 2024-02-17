@@ -133,35 +133,3 @@ input:checked + .swither__slider:before {
 .swither__inner:has(input:checked) .swither__text:last-of-type {
   color: #000;
 }
-
-.allowed-list__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  column-gap: 0.5rem;
-  position: relative;
-}
-
-.allowed-list__remove-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background: none;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-}
-
-.allowed-list__remove-btn .icon-remove {
-  height: 1.2rem;
-  width: 1.2rem;
-}
-
-.allowed-list {
-  margin: 8px 0;
-}
-
-.allowed-list li + li {
-  margin-top: 4px;
-}
