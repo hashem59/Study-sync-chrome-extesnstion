@@ -19,6 +19,12 @@
       "matches": [
         "<all_urls>"
       ]
+    },
+    {
+      "js": ["scripts/coursera.js"],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
   "options_ui": {
