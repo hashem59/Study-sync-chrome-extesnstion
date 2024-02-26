@@ -8,7 +8,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
   if (!tab.url) return;
   if (tab.url.includes('coursera.org')) {
-    initiateCourse(tab);
+    courseFound(tab);
   }
   console.log('tab.url', tab.url, tab);
   chrome.storage.sync.get(['browserLimiterAllowList', 'browserLimiterState']).then(async (data) => {
@@ -36,20 +36,36 @@ chrome.runtime.onMessage.addListener((obj, sender, response) => {
   }
 });
 
-async function initiateCourse({ url, title }) {
-
+async function courseFound({ url, title }) {
+  const courseHandle = url.split('/learn/')[1].split('/')[0];
   await addCourseToList(courseHandle);
   await addCourseToStorage(courseHandle, title);
+  console.log('Course initiated', courseHandle);
 }
-
 
 function addCourseToList(courseHandle) {
   // new promse based code
   return new Promise((resolve, reject) => {
     chrome.storage.sync.get('courses', function (data) {
       if (data.courses) {
-        console.log('Courses already tracked', data.courses);
-        resolve();
+        try {
+          const courses = data.courses;
+          if (courses.includes(courseHandle)) {
+            console.log('Courses already tracked', courses);
+            resolve();
+          } else {
+            courses.push(courseHandle);
+            chrome.storage.sync.set(
+              {
+                courses: courses
+              },
+              function (result) {
+                console.log('Courses added to tracked list', result);
+                resolve();
+              }
+            );
+          }
+        } catch (error) {}
       } else {
         // add course to chrome storage
         chrome.storage.sync.set(
