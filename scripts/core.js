@@ -1,6 +1,7 @@
 (async () => {
   renderAllowList();
   handleAddToAllowList();
+
   const browserLimiterInput = document.querySelector('input[name="browser-limiter"]');
   if (browserLimiterInput) {
     chrome.storage.sync.get(['browserLimiterState']).then((data) => {
@@ -22,11 +23,12 @@
   }
 
   async function renderAllowList() {
+    console.log('renderAllowList');
     const allowList = (await getAllowList()) || [];
     const allowListContainer = document.querySelector('ul.allow-list');
-    if (!allowListContainer) return;
+    if (!allowListContainer) return console.log('No allow list container');
     allowListContainer.innerHTML = '';
-    if (allowList.length == 0) return;
+    if (allowList.length == 0) return console.log('No allow list');
     let html = '';
     allowList.forEach((domain) => {
       const li = `
@@ -51,9 +53,7 @@
       btn.addEventListener('click', async function (e) {
         const domain = e.currentTarget.getAttribute('data-url');
         const newAllowList = allowList.filter((item) => item !== domain);
-        await chrome.storage.sync
-          .set({ browserLimiterAllowList: newAllowList })
-          .then(() => renderAllowList());
+        await chrome.storage.sync.set({ browserLimiterAllowList: newAllowList }).then(() => renderAllowList());
       });
     });
   }

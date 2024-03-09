@@ -77,7 +77,7 @@
     <div class="main">
       <h3 class="title-1">Last active course</h3>
       <ul class="courses-list">
-        <li class="course">
+        <li class="course" id="last-active-course" style="display: none;">
           <details class="accordion">
             <summary class="course__summary" role="button">
               <strong class="course__summary-title"
@@ -98,29 +98,13 @@
                   <th>Task</th>
                   <th>Time</th>
                 </tr>
-                <tr>
-                  <td>Watching videos</td>
-                  <td>00:00:00</td>
-                </tr>
-                <tr>
-                  <td>Watching Webinars</td>
-                  <td>00:00:00</td>
-                </tr>
-                <tr>
-                  <td>Reading References</td>
-                  <td>00:00:00</td>
-                </tr>
-                <tr>
-                  <td>Assignments</td>
-                  <td>00:00:00</td>
-                </tr>
               </table>
             </div>
           </details>
         </li>
       </ul>
       <div class="center mb-20">
-        <button class="button" data-action="go-to-options">View all stats</button>
+        <button class="button" data-action="go-to-options" data-target="tab-DataDashboard">View all stats</button>
       </div>
       <h3 class="title-1">Browser Limiter <br /><small>(Block non-study websites)</small></h3>
       <div>

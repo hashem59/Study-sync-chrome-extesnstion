@@ -35,7 +35,6 @@
   border-radius: 5px;
 }
 
-
 .study-sync__blocker_overlay .study-sync__blocker-overlay-message {
   display: block;
   font-size: 1.5em;
@@ -47,8 +46,8 @@
   color: #0956d2;
 }
 
-.study-sync__blocker_overlay [type=button].study-sync__blocker-overlay-allow,
-.study-sync__blocker_overlay [type=button].study-sync__blocker-overlay-cancel {
+.study-sync__blocker_overlay [type='button'].study-sync__blocker-overlay-allow,
+.study-sync__blocker_overlay [type='button'].study-sync__blocker-overlay-cancel {
   display: inline-block;
   padding: 0.5em 1em;
   border-radius: 4px;
@@ -61,7 +60,16 @@
   border: 0;
 }
 
-.study-sync__blocker_overlay [type=button].study-sync__blocker-overlay-allow  {
+.study-sync__blocker_overlay [type='button'].study-sync__blocker-overlay-allow {
   background: #f44336;
+}
 
+.study-sync__blocker-overlay-course {
+  margin-bottom: 14px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.study-sync__blocker_overlay p {
+  margin-bottom: 14px;
 }
