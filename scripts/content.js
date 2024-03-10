@@ -113,6 +113,10 @@
     }
 
     init() {
+      if (this.heartbeatInterval) {
+        clearInterval(this.heartbeatInterval);
+        this.heartbeatInterval = null; // Clear the interval ID
+      }
       this.heartbeatInterval = null;
       this.heartbeatFrequency = 5000; // 5 seconds
       // Send immediate heartbeat in case the page is already visible
@@ -144,7 +148,8 @@
     }
 
     sendHeartbeat() {
-      if (chrome.runtime?.id) return;
+      if (document.hidden) return;
+      if (!chrome.runtime?.id) return;
       const activityType = this.determineActivityType();
       console.log('Sending heartbeat, activityType: ', activityType);
       if (activityType) {

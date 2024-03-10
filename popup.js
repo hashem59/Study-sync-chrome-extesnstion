@@ -14,8 +14,9 @@
 
   try {
     const { lastActiveCourse: lastActiveCourseHandle } = await chrome.storage.sync.get('lastActiveCourse');
-    const { [lastActiveCourseHandle]: lastActiveCourse } = await chrome.storage.sync.get([lastActiveCourseHandle]);
-    console.log('lastActiveCourse', lastActiveCourse);
+    console.log('lastActiveCourseHandle', await chrome.storage.sync.get(lastActiveCourseHandle));
+    console.log('lastActiveCourseHandle', await chrome.storage.sync.get([lastActiveCourseHandle]));
+    const { [lastActiveCourseHandle]: lastActiveCourse } = await chrome.storage.sync.get(lastActiveCourseHandle);
     let totalTime = 0;
 
     Object.keys(lastActiveCourse.data).forEach((activity, index) => {
@@ -28,13 +29,9 @@
         <td>${MsToHM(time)}</td>
       </tr>
     `;
-      /*     document.querySelector(`.course__tracking-info-table tr:nth-child(${index + 2}) td:nth-child(1)`).textContent =
-      activity;
-    document.querySelector(`.course__tracking-info-table tr:nth-child(${index + 2}) td:nth-child(2)`).textContent =
-      MsToHM(time); */
     });
 
-    document.querySelector('.course__summary-title').textContent = lastActiveCourse.name + ` (${MsToHM(totalTime)})`;
+    document.querySelector('.course__summary-title').textContent = lastActiveCourse['Name'] + ` (${MsToHM(totalTime)})`;
     document.querySelector('#last-active-course').style.display = '';
   } catch (error) {
     console.log('error', error);

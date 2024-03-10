@@ -1,6 +1,7 @@
 (async function () {
   renderCoursesList();
   exportData();
+  resetData();
 
   async function renderCoursesList() {
     // get courses from storage
@@ -15,7 +16,7 @@
         <details class="accordion">
           <summary class="course__summary" role="button">
             <strong class="course__summary-title">
-              ${course.name} (${MsToHM(totalTime)})
+              ${course['Name']} (${MsToHM(totalTime)})
               <br />
               <small>Last visit: ${formateDate(course['Last accessed at'])}</small>
             </strong>
@@ -40,6 +41,33 @@
     }
     const coursesContainer = document.querySelector('.courses-list');
     if (coursesContainer) coursesContainer.innerHTML = content;
+  }
+
+  async function resetData() {
+    const resetBtn = document.querySelector('[data-action="reset-data"]');
+    if (!resetBtn) return;
+    resetBtn.addEventListener('click', async () => {
+      // confimr with user
+      if (!confirm('Are you sure you want to reset all data?')) return;
+      const { courses: handles } = await chrome.storage.sync.get('courses');
+      if (!handles) return showmsg();
+      for (const handle of handles) {
+        await chrome.storage.sync.remove(handle);
+      }
+      await chrome.storage.sync.remove('courses');
+      showmsg();
+    });
+
+    const showmsg = () => {
+      const msg = document.createElement('p');
+      msg.textContent = 'All data has been reset';
+      // make it color green
+      msg.style.color = 'green';
+      resetBtn.parentElement.appendChild(msg);
+      setTimeout(() => {
+        msg.remove();
+      }, 3000);
+    };
   }
 
   async function exportData() {
@@ -77,12 +105,12 @@
         'Name',
         'First accessed at',
         'Last accessed at',
-        'Last active url',
         'Assignments',
         'Other activities',
         'Reading articles',
         'Watching Webinars',
-        'Watching videos'
+        'Watching videos',
+        'Last active url'
       ];
       return order.indexOf(a) - order.indexOf(b);
     });
@@ -91,8 +119,8 @@
       const data = item.data;
       return [
         ...headers.map((h) => {
-          const value = item[h] || data[h];
-          if (h == 'First accessed at' || h == 'lastActiveAt') return formateDate(value);
+          const value = item[h] || MsToHM(data[h]);
+          if (h == 'First accessed at' || h == 'Last accessed at') return formateDate(value);
           return value;
         })
       ].join(',');
