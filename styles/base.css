@@ -135,3 +135,9 @@ details[open] > summary .icon-caret {
   font-size: 0.9em;
   margin-top: 0.4rem;
 }
+
+[data-action='export-data'],
+[type='submit'],
+[type='button'] {
+  cursor: pointer;
+}

@@ -43,10 +43,10 @@
         chrome.tabs.remove(sender.tab.id);
       } else if (obj.type === 'heartbeat') {
         const { courseHandle, activityType, timeToAdd } = obj;
-        console.log('heartbeat', courseHandle, activityType, timeToAdd);
+        //console.log('heartbeat', courseHandle, activityType, timeToAdd);
         const course = await chrome.storage.sync.get([courseHandle]);
-        console.log('course', course); // {courseHandle: {name: 'course name', data: {Assignments: 0, Reading articles: 0, Watching Webinars: 0, Watching videos: 0}}}
-        const courseData = { ...course[courseHandle], lastActiveAt: Date.now() };
+        //console.log('course', course); // {courseHandle: {name: 'course name', data: {Assignments: 0, Reading articles: 0, Watching Webinars: 0, Watching videos: 0}}}
+        const courseData = { ...course[courseHandle], 'Last accessed at': Date.now(), 'Last active url': obj.tab.url };
         if (courseData.data[activityType]) {
           courseData.data[activityType] += timeToAdd; // in meliseconds
         } else {
@@ -127,9 +127,10 @@
         } else {
           // add course to chrome storage
           const course = {
-            name: courseHandle.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
-            lastVisitedUrl: url,
-            firstAccessedAt: Date.now(),
+            Name: courseHandle.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+            'Last accessed at': url,
+            'First accessed at': Date.now(),
+            'Last active url': url,
             data: {
               'Watching videos': 0, // in meliseconds
               'Watching Webinars': 0,

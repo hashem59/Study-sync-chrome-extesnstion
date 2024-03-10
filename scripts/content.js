@@ -144,6 +144,7 @@
     }
 
     sendHeartbeat() {
+      if (chrome.runtime?.id) return;
       const activityType = this.determineActivityType();
       console.log('Sending heartbeat, activityType: ', activityType);
       if (activityType) {
